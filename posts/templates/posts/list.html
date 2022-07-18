@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+	{%load static%}
+	<head>
+		<title>Item</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{%static 'posts/global/assets/css/main.css'%}" />
+		<noscript><link rel="stylesheet" href="{%static 'posts/global/assets/css/noscript.css'%}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/">LostoCity</a></h1>
+						<nav>
+                            {%if user.is_authenticated%}
+								<a href="/profile"><img src="{{ user.profile.image.url }}" alt="Profile" width="40px" style="vertical-align: middle;border: 1px solid;border-radius: 20px;background-color: aliceblue;"></a>
+							{%endif%}
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="/">Home</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/profile">Profile</a></li>
+								{%endif%}
+								<li><a href="/posts">Posts</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/logout">Logout</a></li>
+								{%else%}
+									<li><a href="/entry">Sign in/Sign Up</a></li>
+								{%endif%}
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>{%if posts or specificPosts%}Posts{%elif myPosts%}My Posts{%elif lostList%}Lost Items{%elif foundList%}Found Items{%elif myLostList%}My Lost Items{%elif myFoundList%}My Found Items{%elif myClaimList%}My Claim List{%elif myReturnList%}My Return List{%endif%}</h2>
+								<p></p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+									<p><a href="javascript:history.back()" class="button">Back</a></p>
+									{%if lostList or foundList or myLostList or myFoundList or myClaimList or myReturnList or myPosts%}
+										<h3 class="major">{%if lostList or myLostList%}Lost Items{%elif foundList or myFoundList%}Found Items{%elif myClaimList%}Claims{%elif myReturnList%}Returns{%endif%}</h3>
+										<p>{%if lostList%}Posted by people who lost items/people.{%elif foundList%}Posted by people who found items/people.{%elif myLostList%}Your lost items{%elif myFoundList%}Items you found.{%elif myClaimList%}Items you claimed on.{%elif myReturnList%}Items you want to return.{%endif%}</p>
+									{%endif%}
+									<section class="features">
+										{%for item in objects%}
+											<article>
+												<a href="/item/{{item.0}}/{{item.1.id}}" class="image"><img src="{{item.1.image.url}}" style="object-fit: cover;vertical-align: middle;" width="416px" height="243px" /></a>
+												<h3 class="major">{{item.1.name}}</h3>
+												{%if item.0 == "lost"%}
+													Lost Item</br>
+												{%elif item.0 == "found"%}
+													Found Item</br>
+												{%endif%}
+												{%if not myClaimList or myReturnList%}Posted by {{item.1.user.first_name}}
+												{%elif myClaimList%}Claimed on item posted by {{item.2.user.first_name}}
+												{%elif myReturnList%}Returning on item posted by {{item.2.user.first_name}}
+												{%endif%}
+												<p><a href="/item/{{item.0}}/{{item.1.id}}" class="special">View</a></p>
+											</article>
+										{%endfor%}
+									</section>
+									
+									<h4>Pagination</h4>
+									<ul class="pagination">
+										<li><button onclick="window.location.href='?page={%if objects.has_previous%}{{objects.previous_page_number}}{%else%}1{%endif%}'" class="button small {%if not objects.has_previous%}disabled{%endif%}" {%if not objects.has_previous%}disabled{%endif%}>Prev</button></li>
+										{%if objects.has_previous%}
+											<li><button onclick="window.location.href='?page=1'" class="button small">First</button></li>
+										{%endif%}
+										{%if objects.number|add:'-3' >= 1%}
+											<li><span>&hellip;</span></li>
+										{%endif%}
+										{%for num in objects.paginator.page_range%}
+											{%if objects.number == num%}
+												{%if not objects.has_previous%}
+													<li><button onclick="window.location.href='?page={{num}}'" class="page active">{{num}}</button></li>
+												{%else%}
+													<li><button onclick="window.location.href='?page={{num}}'" class="page active">{{num}}</button></li>
+												{%endif%}
+											{%elif num > objects.number|add:'-3' and num < objects.number|add:'3'%}
+												<li><button onclick="window.location.href='?page={{num}}'" class="page">{{num}}</button></li>
+											{%endif%}
+										{%endfor%}
+										{%if objects.number|add:'3' <= objects.paginator.num_pages%}
+											<li><span>&hellip;</span></li>
+										{%endif%}
+										{%if objects.has_next%}
+											<li><button onclick="window.location.href='?page={{objects.paginator.num_pages}}'" class="button small">Last</button></li>
+										{%endif%}
+										<li><button onclick="window.location.href='?page={%if objects.has_next%}{{objects.next_page_number}}{%else%}{{objects.paginator.num_pages}}{%endif%}'" class="button small {%if not objects.has_next%}disabled{%endif%}" {%if not objects.has_next%}disabled{%endif%}>Next</button></li>
+									</ul>
+								</div>
+							</div>
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="contact">
+								<li class="icon solid fa-phone"></li>
+								<li class="icon solid fa-envelope"><a href="#"></a></li>
+								<li class="icon brands fa-twitter"><a href="#"></a></li>
+								<li class="icon brands fa-facebook-f"><a href="#"></a></li>
+								<li class="icon brands fa-instagram"><a href="#"></a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{%static 'posts/global/assets/js/jquery.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/jquery.scrollex.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/browser.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/breakpoints.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/util.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/main.js'%}"></script>
+
+	</body>
+</html>

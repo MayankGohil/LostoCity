@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+	{%load static%}
+	<head>
+		<title>Item</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{%static 'posts/global/assets/css/main.css'%}" />
+		<noscript><link rel="stylesheet" href="{%static 'posts/global/assets/css/noscript.css'%}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/">LostoCity</a></h1>
+						<nav>
+                            {%if user.is_authenticated%}
+								<a href="/profile"><img src="{{ user.profile.image.url }}" alt="Profile" width="40px" style="vertical-align: middle;border: 1px solid;border-radius: 20px;background-color: aliceblue;"></a>
+							{%endif%}
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="/">Home</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/profile">Profile</a></li>
+								{%endif%}
+								<li><a href="/posts">Posts</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/logout">Logout</a></li>
+								{%else%}
+									<li><a href="/entry">Sign in/Sign Up</a></li>
+								{%endif%}
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Item Details</h2>
+								<p></p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+									{%if user == item.user%}<a href="/edit/{{option}}/{{item.id}}/" style="float: right;" class="button">Edit</a>{%endif%}
+									<div class="row gtr-uniform">
+										<div class="col-12">
+											<label>Item {%if option == 'lost' or option == 'return'%}Lost{%elif option == 'found' or option == 'claim'%}Found{%endif%} Posted by</label>
+											{%if option == 'claim' or option == 'return' or claimList or returnList%}
+												{{item.item.user.first_name}}
+											{%else%}
+											{{item.user.first_name}}
+											{%endif%}
+										</div>
+										<div class="col-6 col-12-xsmall">
+											<label for="name">Item Name</label>
+											<span id="name">{{item.name}}</span>
+										</div>
+										<div class="col-6 col-12-xsmall">
+											<img src="{{item.image.url}}" id="image" class="image" style="object-fit: cover;vertical-align: middle;" width="416px" height="243px">
+										</div>
+										<div class="col-12">
+											<label for="description">Description</label>
+											<span id="description">{{item.description}}</span>
+										</div>
+										<div class="col-4 col-12-small">
+											<label for="category">Category</label>
+											<span id="category">
+												{%if item.category == "electronics"%}Electronics
+												{%elif item.category == "people"%}People
+												{%elif item.category == "pets"%}Pets
+												{%elif item.category == "automobiles"%}Automobiles
+												{%elif item.category == "bags"%}Bags
+												{%elif item.category == "documents"%}Documents
+												{%elif item.category == "jewellery"%}Jewellery
+												{%elif item.category == "fashion-accessories"%}Fashion Accessories
+												{%elif item.category == "other"%}Other
+												{%endif%}
+											</span>
+										</div>
+										<div class="col-4 col-12-small">
+											<label for="date">Date</label>
+											<span id="date">{{item.date}}</span>
+										</div>
+										<div class="col-4 col-12-small">
+											<label for="time">Time</label>
+											<span id="time">{{item.time}}</span>
+										</div>
+										<div class="col-12">
+											<label for="place">Place</label>
+											<span id="place">{{item.place}}</span>
+										</div>
+										<div class="col-12">
+											<ul class="actions">
+												{%if user != item.user and option == 'lost'%}<li><a href="/submitReturn/{{item.id}}" class="button primary">Return Item</a></li>
+												{%elif user != item.user and option == 'found'%}<li><a href="/submitClaim/{{item.id}}" class="button primary">Claim Item</a></li>
+												{%endif%}
+												<li><a href="/" class="button">Back</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="contact">
+								<li class="icon solid fa-phone"></li>
+								<li class="icon solid fa-envelope"><a href="#"></a></li>
+								<li class="icon brands fa-twitter"><a href="#"></a></li>
+								<li class="icon brands fa-facebook-f"><a href="#"></a></li>
+								<li class="icon brands fa-instagram"><a href="#"></a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{%static 'posts/global/assets/js/jquery.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/jquery.scrollex.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/browser.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/breakpoints.min.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/util.js'%}"></script>
+			<script src="{%static 'posts/global/assets/js/main.js'%}"></script>
+
+	</body>
+</html>

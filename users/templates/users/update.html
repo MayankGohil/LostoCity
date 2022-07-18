@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+	{%load static%}
+	<head>
+		<title>Update Profile</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{%static 'users/global/assets/css/main.css'%}" />
+		<noscript><link rel="stylesheet" href="{%static 'users/global/assets/css/noscript.css'%}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/">LostoCity</a></h1>
+						<nav>
+                            {%if user.is_authenticated%}
+								<a href="/profile"><img src="{{ user.profile.image.url }}" alt="Profile" width="40px" style="vertical-align: middle;border: 1px solid;border-radius: 20px;background-color: aliceblue;"></a>
+							{%endif%}
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="/">Home</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/profile">Profile</a></li>
+								{%endif%}
+								<li><a href="/posts">Posts</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/logout">Logout</a></li>
+								{%else%}
+									<li><a href="/entry">Sign in/Sign Up</a></li>
+								{%endif%}
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Update Profile</h2>
+								<p></p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+                                    <p><a href="/profile" class="button">Back</a></p>
+									<form method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                        <div class="row gtr-uniform">
+										    <div class="col-12">
+                                                <label for="image">Profile Photo</label>
+                                                <input type="file" name="image" id="image" style="display: none" accept="image/*" onchange="loadFile(event)">
+                                                <script>
+													var loadFile = function(event) {
+														var image = document.getElementById('output');
+														image.src = URL.createObjectURL(event.target.files[0]);
+													};
+
+													var uploadButton = function() {
+														var button = $('#image');
+														button.click();
+													};
+
+													var resetButton = function() {
+														var image = document.getElementById('output');
+														image.src = "{%static 'posts/global/images/default.jpg'%}";
+													};
+												</script>
+                                                <img src="{{ user.profile.image.url }}" id="output" onclick="uploadButton()" alt="Profile" width="500px" style="vertical-align: middle;border: 5px solid;border-radius: 1000px;background-color: aliceblue;">
+										    </div>
+										    <div class="col-6 col-12-xsmall">
+											    <label for="first_name">First Name</label>
+											    <input type="text" name="first_name" value="{{user.first_name}}">
+                                            </div>
+                                            <div class="col-6 col-12-xsmall">
+                                                <label for="last_name">Last Name</label>
+											    <input type="text" name="last_name" value="{{user.last_name}}">
+										    </div>
+										    <div class="col-3 col-12-small">
+											    <label for="email">Email</label>
+											    <input type="email" name="email" value="{{user.email}}">
+										    </div>
+										    <div class="col-12">
+												<ul class="actions">
+													<li><input type="submit" value="Submit" class="primary"></li>
+													<li><a href="/profile/" class="button">Back</a></li>
+												</ul>
+											</div>
+                                        </div>
+                                    </form>
+								</div>
+							</div>
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="contact">
+								<li class="icon solid fa-phone"></li>
+								<li class="icon solid fa-envelope"><a href="#"></a></li>
+								<li class="icon brands fa-twitter"><a href="#"></a></li>
+								<li class="icon brands fa-facebook-f"><a href="#"></a></li>
+								<li class="icon brands fa-instagram"><a href="#"></a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{%static 'users/global/assets/js/jquery.min.js'%}"></script>
+			<script src="{%static 'users/global/assets/js/jquery.scrollex.min.js'%}"></script>
+			<script src="{%static 'users/global/assets/js/browser.min.js'%}"></script>
+			<script src="{%static 'users/global/assets/js/breakpoints.min.js'%}"></script>
+			<script src="{%static 'users/global/assets/js/util.js'%}"></script>
+			<script src="{%static 'users/global/assets/js/main.js'%}"></script>
+
+	</body>
+</html>

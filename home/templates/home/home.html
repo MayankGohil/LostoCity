@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+	{%load static%}
+	<head>
+		<title>LostoCity</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{%static 'home/home/assets/css/main.css'%}" />
+		<noscript><link rel="stylesheet" href="{%static 'home/home/assets/css/noscript.css'%}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<h1><a href="">LostoCity</a></h1>
+						<nav>
+                            {%if user.is_authenticated%}
+								<a href="/profile"><img src="{{ user.profile.image.url }}" alt="Profile" width="40px" style="vertical-align: middle;border: 1px solid;border-radius: 20px;background-color: aliceblue;"></a>
+							{%endif%}
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+					
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="/">Home</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/profile">Profile</a></li>
+								{%endif%}
+								<li><a href="/posts">Posts</a></li>
+								{%if user.is_authenticated%}
+									<li><a href="/logout">Logout</a></li>
+								{%else%}
+									<li><a href="/entry">Sign in/Sign Up</a></li>
+								{%endif%}
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<div class="logo"><span class="icon fa-gem"></span></div>
+							<h2>LostoCity</h2>
+							<p>A platform to report and find lost things.</p>
+							<button onclick="window.location.href='submitLost/';" class="button">Submit Lost</button>
+							<button onclick="window.location.href='submitFound/';" class="button">Submit Found</button>
+							<button onclick="window.location.href='posts/';" class="button primary">View Recent Posts</button>
+						</div>
+					</section>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+
+						<!-- One -->
+							<section id="one" class="wrapper spotlight style1">
+								<div class="inner">
+									<a href="posts/electronics" class="image"><img src="{%static 'home/home/images/CATEGORY1.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Electronics</h2>
+										<p>Objects like laptops, smartphones, watches, tablets, speakers, etc. come under Electronics category.</p>
+										<a href="posts/electronics" class="special">View</a>
+									</div>
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two" class="wrapper alt spotlight style2">
+								<div class="inner">
+									<a href="#" class="image"><img src="{%static 'home/home/images/CATEGORY2.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">People</h2>
+										<p>Missing People fall under this category.</p>
+										<a href="posts/people" class="special">View</a>
+									</div>
+								</div>
+							</section>
+
+						<!-- One -->
+							<section id="one" class="wrapper spotlight style1">
+								<div class="inner">
+									<a href="#" class="image"><img src="{%static 'home/home/images/CATEGORY3.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Pets</h2>
+										<p>Missing Pets fall under this category.</p>
+										<a href="posts/pets" class="special">View</a>
+									</div>
+								</div>
+							</section>
+							
+						<!-- Two -->
+							<section id="two" class="wrapper alt spotlight style2">
+								<div class="inner">
+									<a href="posts/automobiles" class="image"><img src="{%static 'home/home/images/CATEGORY4.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Automobiles</h2>
+										<p>Vehicles like cars, bikes, bicycles, etc come under this category.</p>
+										<a href="posts/automobiles" class="special">View</a>
+									</div>
+								</div>
+							</section>
+						
+						<!-- One -->
+							<section id="one" class="wrapper spotlight style1">
+								<div class="inner">
+									<a href="posts/bags" class="image"><img src="{%static 'home/home/images/CATEGORY5.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Bags</h2>
+										<p>Any types of bags(like school bags, travelling bags, etc) fall under this category.</p>
+										<a href="posts/bags" class="special">View</a>
+									</div>
+								</div>
+							</section>
+						
+						<!-- Two -->
+							<section id="two" class="wrapper alt spotlight style2">
+								<div class="inner">
+									<a href="posts/documents" class="image"><img src="{%static 'home/home/images/CATEGORY6.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Documents</h2>
+										<p>This category consists of missing documents that are of any type.</p>
+										<a href="posts/documents" class="special">View</a>
+									</div>
+								</div>
+							</section>
+						
+						<!-- One -->
+							<section id="one" class="wrapper spotlight style1">
+								<div class="inner">
+									<a href="posts/jewellery" class="image"><img src="{%static 'home/home/images/CATEGORY7.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Jewellery</h2>
+										<p>Ornaments, Gold Necklaces, etc jewellery comes under this category.</p>
+										<a href="posts/jewellery" class="special">View</a>
+									</div>
+								</div>
+							</section>
+						
+						<!-- Two -->
+							<section id="two" class="wrapper alt spotlight style2">
+								<div class="inner">
+									<a href="posts/fashion-accessories" class="image"><img src="{%static 'home/home/images/CATEGORY8.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Fashion Accessories</h2>
+										<p>Any type of fashion ornament, articles fall under this category.</p>
+										<a href="posts/fashion-accessories" class="special">View</a>
+									</div>
+								</div>
+							</section>
+						
+						<!-- Three -->
+							<section id="three" class="wrapper spotlight style3">
+								<div class="inner">
+									<a href="posts/other" class="image"><img src="{%static 'home/home/images/CATEGORY9.jpg'%}" alt="" /></a>
+									<div class="content">
+										<h2 class="major">Other</h2>
+										<p>Miscellaneous objects that do not fall under any of the above categories come under this category.</p>
+										<a href="posts/other" class="special">View</a>
+									</div>
+								</div>
+							</section>
+
+						<!-- Four -->
+							<section id="four" class="wrapper alt style1">
+								<div class="inner">
+									<h2 class="major">Recent Posts</h2>
+									<p>See featured posts above lost and found articles below.</p>
+									<section class="features">
+										{%for item in objects%}
+											<article>
+												<a href="/item/{{item.0}}/{{item.1.id}}" class="image"><img src="{{item.1.image.url}}" style="object-fit: cover;vertical-align: middle;" width="416px" height="243px" /></a>
+												<h3 class="major"></h3>
+												{{item.1.name}}</br>
+												{%if item.0 == "lost"%}
+													Lost Item</br>
+												{%elif item.0 == "found"%}
+													Found Item</br>
+												{%endif%}
+												Posted by {{item.1.user}}
+												<a href="/item/{{item.0}}/{{item.1.id}}" class="special">View</a>
+											</article>
+										{%endfor%}
+									</section>
+									<ul class="actions">
+										<li><a href="posts/" class="button">View More</a></li>
+									</ul>
+								</div>
+							</section>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="contact">
+								<li class="icon solid fa-phone"></li>
+								<li class="icon solid fa-envelope"><a href="#"></a></li>
+								<li class="icon brands fa-twitter"><a href="#"></a></li>
+								<li class="icon brands fa-facebook-f"><a href="#"></a></li>
+								<li class="icon brands fa-instagram"><a href="#"></a></li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{%static 'home/home/assets/js/jquery.min.js'%}"></script>
+			<script src="{%static 'home/home/assets/js/jquery.scrollex.min.js'%}"></script>
+			<script src="{%static 'home/home/assets/js/browser.min.js'%}"></script>
+			<script src="{%static 'home/home/assets/js/breakpoints.min.js'%}"></script>
+			<script src="{%static 'home/home/assets/js/util.js'%}"></script>
+			<script src="{%static 'home/home/assets/js/main.js'%}"></script>
+
+	</body>
+</html>
